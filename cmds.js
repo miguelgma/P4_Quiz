@@ -137,7 +137,7 @@ const playCmd = rl => {
 
 }
 const creditsCmd = rl =>{
-	log('Autor: Miguel Garcia Maya');
+	log('Autor: MIGUEL');
 	rl.prompt();
 };
 
