@@ -17,5 +17,9 @@
     "node"
   ],
   "author": "Miguel Garcia Maya",
-  "license": "Unlicense"
+  "license": "Unlicense",
+  "devDependencies": {
+    "gulp-jshint": "^2.1.0",
+    "jshint": "^2.9.5"
+  }
 }
