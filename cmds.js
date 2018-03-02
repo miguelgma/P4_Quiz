@@ -125,7 +125,8 @@ const playCmd = rl => {
 			}else{
 				biglog('Incorrecto','red');
 				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
-				playCmd(rl);
+				rl.close();
+				rl.prompt();
 			}	
 		});
 		i++;	
