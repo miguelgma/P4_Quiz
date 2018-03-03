@@ -119,11 +119,11 @@ const playCmd = rl => {
 		rl.question(colorize(`${quiz.question}: `), answer => {
 			if(answer==quiz.answer){
 				++x;
-				biglog('Correcto','green');
+				console.log('Correcto');
 				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')}`);
 				playCmd(rl);			
 			}else{
-				biglog('Incorrecto','red');
+				console.log('Incorrecto');
 				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
 				playCmd(rl);
 			}	
