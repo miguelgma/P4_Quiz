@@ -125,6 +125,7 @@ const playCmd = rl => {
 			}else{
 				console.log('Incorrecto');
 				//log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
+				console.log('Fin');
 				quitCmd(rl);
 			}	
 		});
@@ -142,6 +143,7 @@ const creditsCmd = rl =>{
 };
 
 const quitCmd = rl => {
+		console.log('Fin');
 		rl.close();
 		rl.prompt();
 };
