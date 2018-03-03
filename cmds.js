@@ -123,7 +123,7 @@ const playCmd = rl => {
 				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')}`);
 				playCmd(rl);			
 			}else{
-				console.log('Incorrecto');
+				log('Incorrecto');
 				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
 				console.log('Fin');
 				rl.prompt();
