@@ -125,13 +125,16 @@ const playCmd = rl => {
 			}else{
 				console.log('Incorrecto');
 				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
-				playCmd(rl);
+				console.log('Fin');
+				quitCmd(rl);
 			}	
 		});
 		i++;	
 	}else{
 		i=0;
 		x=0;
+		console.log('Fin');
+		quitCmd(rl);
 		rl.prompt();
 	}
 
