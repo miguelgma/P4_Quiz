@@ -85,7 +85,7 @@ rl.on('line', (line) => {
 
 
 }).on('close', () => {
-  console.log('Fin!');
+  console.log('Fin');
   process.exit(0);
 });
 
