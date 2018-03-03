@@ -47,7 +47,7 @@ const addCmd = rl => {
 
 const testCmd = (rl, id) => {
 	if(typeof id == "undefined"){
-		errorlog(`Falta el parámetro id.`);
+		console.log(`Falta el parámetro id.`);
 		rl.prompt();
 	}else{
 		try{
@@ -62,7 +62,7 @@ const testCmd = (rl, id) => {
 				}
 			});	
 		}catch(error){
-				errorlog(error.message);
+				console.log(error.message);
 				rl.prompt();
 		}
 	
