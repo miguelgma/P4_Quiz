@@ -53,7 +53,7 @@ const testCmd = (rl, id) => {
 		try{
 			const quiz= model.getByIndex(id);
 			rl.question(colorize(`${quiz.question}: `), answer => {
-				if(answer==quiz.answer){
+				if(answer.toLowerCase()==quiz.answer.toLowerCase()){
 					biglog('Correcto','green');
 					rl.prompt();
 				}else{
@@ -65,8 +65,9 @@ const testCmd = (rl, id) => {
 				errorlog(error.message);
 				rl.prompt();
 		}
-	rl.prompt();	
+	
 	}
+	//rl.prompt();
 }
 
 const deleteCmd = (rl, id) => {
