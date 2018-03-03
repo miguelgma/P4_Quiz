@@ -54,10 +54,10 @@ const testCmd = (rl, id) => {
 			const quiz= model.getByIndex(id);
 			rl.question(colorize(`${quiz.question}: `), answer => {
 				if(answer==quiz.answer){
-					biglog('Correcto','green');
+					console.log('Correcto');
 					rl.prompt();
 				}else{
-					biglog('Incorrecto','red');
+					console.log('Incorrecto');
 					rl.prompt();
 				}
 			});	
