@@ -124,7 +124,7 @@ const playCmd = rl => {
 				playCmd(rl);			
 			}else{
 				console.log('Incorrecto');
-				//log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
+				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
 				console.log('Fin');
 				rl.prompt();
 			}	
