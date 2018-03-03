@@ -126,13 +126,14 @@ const playCmd = rl => {
 				console.log('Incorrecto');
 				//log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
 				console.log('Fin');
-				quitCmd(rl);
+				rl.prompt();
 			}	
 		});
 		i++;	
 	}else{
 		i=0;
 		x=0;
+		console.log('Fin');
 		rl.prompt();
 	}
 
