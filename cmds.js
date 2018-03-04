@@ -111,25 +111,33 @@ const editCmd = (rl, id) => {
 
 var x=0;
 var i=0;
+aux = new Array(model.getAll().length);
 
 const playCmd = rl => {
-
+	
 	if(i < model.getAll().length){
-		const quiz= model.getByIndex(i);
-		rl.question(colorize(`${quiz.question}: `), answer => {
-			if(answer==quiz.answer){
-				++x;
-				console.log('Correcto');
-				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')}`);
-				playCmd(rl);			
-			}else{
-				log('Incorrecto');
-				log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
-				console.log('Fin');
-				rl.prompt();
-			}	
-		});
-		i++;	
+		var index = Math.floor(Math.random() * model.getAll().length);
+		if(aux[index]== null){ 			
+			aux[index]= index;
+			const quiz= model.getByIndex(index);
+			rl.question(colorize(`${quiz.question}: `), answer => {
+				if(answer==quiz.answer){
+					++x;
+					console.log('Correcto');
+					log(`${colorize('Lleva')} ${x} ${colorize('aciertos')}`);
+					
+					playCmd(rl);			
+				}else{
+					log('Incorrecto');
+					log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
+					console.log('Fin');
+					rl.prompt();
+				}	
+			});
+			i++;		
+		}else{
+			playCmd(rl);
+		}		
 	}else{
 		i=0;
 		x=0;
