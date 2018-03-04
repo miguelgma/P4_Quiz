@@ -141,6 +141,7 @@ const playCmd = rl => {
 	}else{
 		i=0;
 		x=0;
+		aux.splice(0, model.getAll().length);
 		console.log('Fin');
 		rl.prompt();
 	}
