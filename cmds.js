@@ -121,7 +121,7 @@ const playCmd = rl => {
 			aux[index]= index;
 			const quiz= model.getByIndex(index);
 			rl.question(colorize(`${quiz.question}: `), answer => {
-				if(answer==quiz.answer){
+				if(answer.toLowerCase().trim()==quiz.answer.toLowerCase().trim()){
 					++x;
 					console.log('Correcto');
 					log(`${colorize('Lleva')} ${x} ${colorize('aciertos')}`);
