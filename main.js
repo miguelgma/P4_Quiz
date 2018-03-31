@@ -66,10 +66,10 @@ rl.on('line', (line) => {
 		creditsCmd(rl);
 		break;
 
-	case 'play':
-	case 'p':
-		playCmd(rl);
-		break;
+	// case 'play':
+	// case 'p':
+	// 	playCmd(rl);
+	// 	break;
 
     case 'q':
     case 'quit':
