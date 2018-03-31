@@ -1,9 +1,10 @@
 const readline = require('readline');
 
 const model = require("./model");
-const {log, biglog, errorlog, colorize} = require("./out");
-const {helpCmd, listCmd, showCmd, addCmd, testCmd, deleteCmd, editCmd, playCmd, creditsCmd, quitCmd} = require("./cmds");
 
+const {log, biglog, errorlog, colorize} = require("./out");
+
+const cmds = require("./cmds");
 
 biglog('CORE quiz','green');
 
@@ -35,35 +36,35 @@ rl.on('line', (line) => {
 
   	case 'h':
   	case 'help':
-  		helpCmd(rl);
+  		cmds.helpCmd(rl);
 		break;
 
 	case 'list':
-		listCmd(rl);
+		cmds.listCmd(rl);
 		break;
 
 	case 'show':
-		showCmd(rl, args[1]);
+		cmds.showCmd(rl, args[1]);
 		break;
 
 	case 'add':
-		addCmd(rl);
+		cmds.addCmd(rl);
 		break;	
 
 	case 'edit':
-  		editCmd(rl, args[1]);
+  		cmds.editCmd(rl, args[1]);
 		break;
 
 	case 'delete':
-		deleteCmd(rl, args[1]);
+		cmds.deleteCmd(rl, args[1]);
 		break;
 
 	case 'test':
-  		testCmd(rl, args[1]);
+  		cmds.testCmd(rl, args[1]);
 		break;
 
 	case 'credits':
-		creditsCmd(rl);
+		cmds.creditsCmd(rl);
 		break;
 
 	// case 'play':
@@ -73,7 +74,7 @@ rl.on('line', (line) => {
 
     case 'q':
     case 'quit':
-    	quitCmd(rl);
+    	cmds.quitCmd(rl);
     	break;
 
     default:
