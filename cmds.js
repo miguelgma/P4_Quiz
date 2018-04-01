@@ -190,7 +190,7 @@ exports.playCmd = rl => {
             makeQuestion(rl, `${quiz.question}: `)
                 .then(a => {
                     if(a.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
-                        puntos++;
+                        ++puntos;
                         resolve(oneQuestion());
                     } else {
                         log("Respuesta Incorrecta");                        
