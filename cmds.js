@@ -168,44 +168,54 @@ exports.editCmd = (rl, id) => {
 	});
 };
 
-// var x=0;
-// var i=0;
-// aux = new Array(model.getAll().length);
 
-// const playCmd = rl => {
-	
-// 	if(i < model.getAll().length){
-// 		var index = Math.floor(Math.random() * model.getAll().length);
-// 		if(aux[index]== null){ 			
-// 			aux[index]= index;
-// 			const quiz= model.getByIndex(index);
-// 			rl.question(colorize(`${quiz.question}: `), answer => {
-// 				if(answer.toLowerCase().trim()==quiz.answer.toLowerCase().trim()){
-// 					++x;
-// 					console.log('Correcto');
-// 					log(`${colorize('Lleva')} ${x} ${colorize('aciertos')}`);
-					
-// 					playCmd(rl);			
-// 				}else{
-// 					log('Incorrecto');
-// 					log(`${colorize('Lleva')} ${x} ${colorize('aciertos')} `);
-// 					console.log('Fin');
-// 					rl.prompt();
-// 				}	
-// 			});
-// 			i++;		
-// 		}else{
-// 			playCmd(rl);
-// 		}		
-// 	}else{
-// 		i=0;
-// 		x=0;
-// 		aux.splice(0, model.getAll().length);
-// 		console.log('Fin');
-// 		rl.prompt();
-// 	}
 
-// }
+exports.playCmd = rl => {
+	let puntos = 0;
+    let aux = [];
+
+    const oneQuestion = () => {
+        return new Promise((resolve,reject) => {
+
+            if(aux.length <=0){
+                log("Ha ganado el juego");
+                log(puntos);
+                resolve();
+                return;
+            }
+            let index = Math.floor(Math.random()*aux.length);
+            let quiz = aux[index];
+            aux.splice(index,1);
+
+            makeQuestion(rl, `${quiz.question}: `)
+                .then(a => {
+                    if(a.toLowerCase().trim() === quiz.answer.toLowerCase()){
+                        puntos++;
+                        resolve(oneQuestion());
+                    } else {
+                        log("Respuesta Incorrecta");                        
+                        resolve();
+                    }
+                })
+        })
+    }
+
+    models.quiz.findAll({raw: true})
+        .then(quizzes => {
+            aux = quizzes;
+        })
+        .then(() => {
+            return oneQuestion();
+        })
+        .catch(error => {
+            log(error);
+        })
+
+        .then(() => {
+            log(`${colorize('Lleva')} ${puntos} ${colorize('puntos')} `);
+            rl.prompt();
+		});
+};
 exports.creditsCmd = rl =>{
 	log('Autor: MIGUEL');
 	rl.prompt();
