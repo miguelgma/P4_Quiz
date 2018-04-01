@@ -2,7 +2,7 @@ const {models} = require('./model');
 const {colorize, log, biglog, errorlog} = require("./out");
 const Sequelize = require('sequelize');
 
-const helpCmd = rl => {
+exports.helpCmd = rl => {
 	log("Comandos :");
 	log("h|help - muestra esta ayuda");
 	log("list - listar quizzes existentes");
@@ -38,7 +38,7 @@ const makeQuestion = (rl, text) =>{
 	});
 };
 
-const listCmd = rl => {
+exports.listCmd = rl => {
 	models.quiz.findAll()
 	.then(quizzes => {
 		quizzes.forEach(quiz => {
@@ -52,7 +52,7 @@ const listCmd = rl => {
 		rl.prompt();
 	});	
 };
-const showCmd = (rl, id) => {
+exports.showCmd = (rl, id) => {
 	validateId(id)
 	.then(id => models.quiz.findById(id))
 	.then(quiz => {
@@ -69,7 +69,7 @@ const showCmd = (rl, id) => {
 	});
 };
 
-const addCmd = rl => {
+exports.addCmd = rl => {
 	makeQuestion(rl, 'Introduzca una pregunta: ')
 	.then(q => {
 		return makeQuestion(rl, 'Introduzca una respuesta')
@@ -95,31 +95,31 @@ const addCmd = rl => {
 	});
 };
 
-const testCmd = (rl, id) => {
-	if(typeof id == "undefined"){
-		errorlog(`Falta el parámetro id.`);
-		rl.prompt();
-	}else{
-		try{
-			const quiz= model.getByIndex(id);
-			rl.question(colorize(`${quiz.question}: `), answer => {
-				if(answer==quiz.answer){
-					console.log('Correcto');
-					rl.prompt();
-				}else{
-					console.log('Incorrecto');
-					rl.prompt();
-				}
-			});	
-		}catch(error){
-				errorlog(error.message);
-				rl.prompt();
+exports.testCmd = (rl, id) => {
+	validateId(id)
+	.then(id => models.quiz.findById(id))
+	.then(quiz => {
+		if(!quiz){
+			throw new Error(`No esxiste un quiz asociado el id= ${id}`);
 		}
-	rl.prompt();	
-	}
+		return makeQuestion(rl, `${quiz.question}: `)
+		.then(a => {
+			if(a.toLowerCase().trim()== quiz.answer.toLowerCase()){
+				log("Respuesta correcta");
+			}else{
+				log("Respuesta incorrecta");
+			}
+		});
+	})
+	.catch(error => {
+		errorlog(error.message);
+	})
+	.then(()=> {
+		rl.prompt();
+	});
 }
 
-const deleteCmd = (rl, id) => {
+exports.deleteCmd = (rl, id) => {
 	validateId(id)
 	.then(id => models.quiz.destroy({where: {id}}))
 	.catch(error => {
@@ -130,7 +130,7 @@ const deleteCmd = (rl, id) => {
 	});
 };
 
-const editCmd = (rl, id) => {
+exports.editCmd = (rl, id) => {
 	validateId(id)
 	.then(id => models.quiz.findById(id))
 
@@ -206,26 +206,13 @@ const editCmd = (rl, id) => {
 // 	}
 
 // }
-const creditsCmd = rl =>{
+exports.creditsCmd = rl =>{
 	log('Autor: MIGUEL');
 	rl.prompt();
 };
 
-const quitCmd = rl => {
+exports.quitCmd = rl => {
 		console.log('Fin');
 		rl.close();
 		rl.prompt();
-};
-
-exports = module.exports = {
-	helpCmd,
-	listCmd,
-	showCmd,
-	addCmd,
-	testCmd,
-	deleteCmd,
-	editCmd,
-	//playCmd,
-	creditsCmd,
-	quitCmd
 };
