@@ -213,6 +213,7 @@ exports.playCmd = rl => {
 
         .then(() => {
             log(`${colorize('Lleva')} ${puntos} ${colorize('puntos')} `);
+            log("Fin");
             rl.prompt();
 		});
 };
