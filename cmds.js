@@ -99,20 +99,22 @@ exports.testCmd = (socket, rl, id) => {
 	validateId(id)
 	.then(id => models.quiz.findById(id))
 	.then(quiz => {
-		if(!quiz){
+		if(quiz.question == "undefined"){
 			throw new Error(`No esxiste un quiz asociado el id= ${id}`);
+		}else{
+			return makeQuestion(rl, `${quiz.question}: `)
+			.then(a => {
+				if(a.toLowerCase().trim()== quiz.answer.toLowerCase()){
+					log(socket, "Respuesta correcta");
+				}else{
+					log(socket, "Respuesta incorrecta");
+				}
+			});
 		}
-		return makeQuestion(rl, `${quiz.question}: `)
-		.then(a => {
-			if(a.toLowerCase().trim()== quiz.answer.toLowerCase()){
-				log(socket, "Respuesta correcta");
-			}else{
-				log(socket, "Respuesta incorrecta");
-			}
-		});
+
 	})
 	.catch(error => {
-		errorlog(socket, serror.message);
+		errorlog(socket, error.message);
 	})
 	.then(()=> {
 		rl.prompt();
@@ -156,7 +158,7 @@ exports.editCmd = (socket, rl, id) => {
 	})
 	.catch(Sequelize.ValidationError, error => {
             errorlog(socket, 'El quiz es erroneo:');
-            error.errors.forEach(({message}) => errorlog(message));
+            error.errors.forEach(({message}) => errorlog(socket, message));
         })
 
     .catch(error => {
