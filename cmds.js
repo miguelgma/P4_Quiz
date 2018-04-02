@@ -193,6 +193,7 @@ exports.playCmd = (socket,rl) => {
                 .then(a => {
                     if(a.toLowerCase().trim() === quiz.answer.toLowerCase().trim()){
                         ++puntos;
+                        log(socket, "Respuesta Correcta");   
                         resolve(oneQuestion());
                     } else {
                         log(socket, "Respuesta Incorrecta");                        
