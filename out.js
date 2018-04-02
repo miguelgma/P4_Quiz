@@ -11,25 +11,25 @@ console.log(
 );
 */
 
-const colorize = (msg, color) => {
-	if(typeof color !== "undefined"){
-		msg= chalk[color].bold(msg);
+const colorize=(msg,color)=>{
+        if(typeof color!=="undefined"){
+		msg=chalk[color].bold(msg);
 	}
-	return msg;
+        return msg;
 };
 
-const log = (msg, color) => {
-	console.log(colorize(msg, color));
+const log = (socket, msg, color) => {
+	socket.write(colorize(msg, color) + "\n");
 };
 
 //big log llama al log anterior
-const biglog = (msg, color) => {
-	log(figlet.textSync(msg, {horizontalLayout: 'full'}), color);
+const biglog = (socket, msg, color) => {
+	log(socket, figlet.textSync(msg, {horizontalLayout: 'full'}), color);
 };
 
 //MENSAJE DE ERROR
-const errorlog = (emsg) => {
-	console.log(`${colorize("error", "red")}:${colorize(colorize(emsg, "red"), "bgYellowBright")}`);
+const errorlog = (socket, emsg) => {
+	socket.write(`${colorize("error", "red")}:${colorize(colorize(emsg, "red"), "bgYellowBright")}\n`);
 };
 
 exports = module.exports = {
